@@ -1,0 +1,195 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: whitesmoke;
+}
+
+.container {
+    max-width: 1000px;
+    width: 90%;
+    margin: 0 auto;
+}
+
+/* header start */
+header {
+    background-color: steelblue;
+}
+
+h1 {
+    text-align: center;
+    color: white;
+    padding: 3%;
+}
+/* header end */
+
+/* Library start */
+.libraryContainer {    
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 200px);
+    grid-column-gap: 5%;
+    justify-content: center;
+}
+
+.addBook {
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.addBook button {
+    background-color: steelblue;
+    border: 2px solid steelblue;
+    border-radius: 5px;
+    color: white;
+    padding: 15px 60px;
+    font-size: 20px;
+}
+
+
+.book {
+    background-color: white;
+    width: 200px;
+    height: 235px;
+    margin-top: 20px;
+    border: 2px solid steelblue;
+    border-radius: 5px;
+    text-align: center;
+    position: relative;
+}
+
+.bookInfo {
+    padding: 10px;
+    color: black;
+}
+
+.title {
+    background-color: steelblue;
+    width: 100%;
+    padding: 10px;
+    font-size: 20px;
+    color: white;
+}
+
+.author {
+    margin-bottom: 5%;
+}
+
+.statusButton {
+    /* position: absolute;
+    bottom: 10px;
+    left: 22px; */
+    padding: 8px;
+    width: 77%;
+    font-size: 18px;
+    background-color: steelblue;
+    border: 2px solid white;
+    border-radius: 6px;
+    color: white;
+}
+
+.statusButton button:hover,
+.addBook button:hover {
+    border: 2px solid steelblue;
+    background-color: white;
+    color: midnightblue;
+}
+
+#removeBook {
+    background-color: seagreen;
+    color: white;
+    padding: 8px;
+    width: 77%;
+    font-size: 18px;
+    border: 2px solid white;
+    border-radius: 6px;
+}
+
+/* library End */
+
+/* form start */
+
+.formContainer {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0,0,0,0.5);
+    width: 100vw;
+    height: 100vh;
+    
+}
+
+.form {
+    max-width: 500px;
+    border: 2px solid white;
+    background-color: steelblue;
+    border-radius: 6px;
+    padding: 25px;
+    height: 430px;
+    margin: 25vh 10vw;
+    position: relative;
+}
+
+label {
+    font-size: 18px;
+    color: white;
+}
+
+input[type=text], 
+input[type=number], 
+select {
+    width: 100%;
+    height: 40px;
+    padding: 5px 10px;
+    border: 2px solid steelblue;
+    border-radius: 6px;
+    margin: 10px 0;
+}
+
+.formButtons {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+input[type=submit], 
+#clearForm {
+    width: 150px;
+    padding: 5px 0;
+    margin-top: 5px;
+    border: 2px solid steelblue;
+    border-radius: 6px;
+    font-size: 20px;
+}
+
+input[type=submit]:hover, 
+#clearForm:hover {
+    background-color: steelblue;
+    border: 2px solid white;
+    color: white;
+}
+
+#closeForm {
+    font-size: 30px;
+    position: absolute;
+    right: 8px;
+    top: 0px;
+    color: white;
+    background-color: Transparent;
+    cursor: pointer;
+    border: none;
+}
+
+#closeForm:hover {
+    color:red;
+}
+
+/* form end */

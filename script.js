@@ -10,34 +10,94 @@ let myLibrary = [
         title: "To Kill a Mockingbird",
         author: "Harper Lee",
         pages: 281,
-        status: "Read"
+        status: "Complete"
     }, 
     {
         number: 1,
         title: "The Catcher in the Rye",
         author: "J. D. Salinger",
         pages: 234,
-        status: "Read"
+        status: "Complete"
     },
     {
         number: 2,
         title: "The Book",
         author: "The Author",
         pages: 360,
-        status: "Unread"
+        status: "Incomplete"
     }
 ];
 
-function Book(title, author, pages, status) {
+function Book(number, title, author, pages, status) {
   // the constructor...
+    this.number = number;
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.status = status;
 }
 
-function addBookToLibrary() {
-  // do stuff here
+function addBookToLibrary(title, author, pages, status) {
+    // do stuff here
+    const number = myLibrary.length;
+    const addNewBook = new Book(number, title, author, pages, status);
+    myLibrary.push(addNewBook);
+    console.log(myLibrary);
+    displayLibrary();
 }
 
-function displayBooks() {
+function getBookInfo() {
+    const bookTitle = document.getElementById('bookTitle');
+    const bookAuthor = document.getElementById('bookAuthor');
+    const bookPages = document.getElementById('bookPages');
+    const bookStatus = document.getElementById('status');
+    const submit = document.getElementById('submit');
+    const clearForm = document.getElementById('clearForm');
+
+    clearForm.addEventListener('click', function() {
+        clearTheForm();
+    });
+
+    submit.addEventListener('click', function() {
+        if (bookTitle.value != '' && bookAuthor.value != '') {
+
+            const title = bookTitle.value;
+            console.log(title);
+            const author = bookAuthor.value;
+            console.log(author);
+
+            // to complete later
+            const pages = bookPages.value;
+            console.log(pages);
+
+            const status = bookStatus.value;
+            console.log(status);
+
+            form.style.visibility = "hidden";
+            addBookToLibrary(title, author, pages, status);
+        } else {
+            if (bookTitle.value === '') {
+                bookTitle.style.border = "1px solid red";
+            } else if (bookAuthor.value === '') {
+                bookAuthor.style.border = "1px solid red";
+            }
+        }
+    });
+}
+
+function clearTheForm() {
+    bookTitle.value = "";
+    bookAuthor.value = "";
+    bookPages.value = "0";
+    bookTitle.style.border = "2px solid steelblue";
+    bookAuthor.style.border = "2px solid steelblue";
+    bookPages.style.border = "2px solid steelblue";
+}
+
+function displayLibrary() {
     
+    library.innerHTML = "";
+
     for (i = 0; i <= myLibrary.length - 1; i++) {
         let book = document.createElement('div');
         book.classList.add('book');
@@ -78,25 +138,24 @@ function displayBooks() {
     
     statusButton.forEach(button => {
         button.addEventListener('click', function() {
-            if (this.innerHTML === "Read") {
-                this.innerHTML = "Unread";
-                myLibrary[this.id].status = "Unread";
+            if (this.innerHTML === 'Complete') {
+                this.innerHTML = "Incomplete";
+                myLibrary[this.id].status = "Incomplete";
                 console.log(myLibrary[this.id].status);
-            } else if (this.innerHTML === "Unread") {
-                this.innerHTML = "Read"
-                myLibrary[this.id].status = "Read";
+            } else if (this.innerHTML === 'Incomplete') {
+                this.innerHTML = "Complete"
+                myLibrary[this.id].status = "Complete";
                 console.log(myLibrary[this.id].status);
             }
         });
     });
 }
 
-
-
 function init() {
 
     addBookButton.addEventListener('click', function () {
-        if (form.style.visibility === "hidden") {
+        clearTheForm();
+        if (form.style.visibility === 'hidden') {
             form.style.visibility = "visible";
             document.getElementById('closeForm').addEventListener('click', function () {
                 form.style.visibility = "hidden";
@@ -106,7 +165,8 @@ function init() {
         }
     });
 
-    displayBooks();
+    displayLibrary();
+    getBookInfo();
 }
 
 init();

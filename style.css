@@ -6,6 +6,7 @@
 
 body {
     background-color: whitesmoke;
+    font-family: 'Overlock', cursive;
 }
 
 .container {
@@ -31,7 +32,7 @@ h1 {
     display: grid;
     grid-template-columns: repeat(auto-fit, 200px);
     grid-column-gap: 5%;
-    justify-content: center;
+    /* justify-content: center; */
 }
 
 .addBook {
@@ -43,23 +44,23 @@ h1 {
 
 .addBook button {
     background-color: steelblue;
-    border: 2px solid steelblue;
+    border: 2px solid white;
     border-radius: 5px;
-    color: white;
+    color: whitesmoke;
     padding: 15px 60px;
     font-size: 20px;
 }
 
-
 .book {
-    background-color: white;
-    width: 200px;
-    height: 235px;
-    margin-top: 20px;
+    background-color: whitesmoke;
+    width: 220px;
+    height: 250px;
+    margin-top: 18px;
     border: 2px solid steelblue;
     border-radius: 5px;
     text-align: center;
     position: relative;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
 
 .bookInfo {
@@ -70,9 +71,14 @@ h1 {
 .title {
     background-color: steelblue;
     width: 100%;
-    padding: 10px;
-    font-size: 20px;
-    color: white;
+    height: 34%;
+    padding: 6px 8px;
+    font-size: 18px;
+    color: whitesmoke;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Hahmlet', serif;
 }
 
 .author {
@@ -80,9 +86,6 @@ h1 {
 }
 
 .statusButton {
-    /* position: absolute;
-    bottom: 10px;
-    left: 22px; */
     padding: 8px;
     width: 77%;
     font-size: 18px;
@@ -92,21 +95,36 @@ h1 {
     color: white;
 }
 
-.statusButton button:hover,
+.statusButton:hover,
 .addBook button:hover {
-    border: 2px solid steelblue;
-    background-color: white;
-    color: midnightblue;
+    background-color: #8A4F7D;
 }
 
-#removeBook {
+.statusButton:hover {
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+}
+
+.addBook button:hover {
+    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
+
+.removeBook {
     background-color: seagreen;
     color: white;
     padding: 8px;
     width: 77%;
     font-size: 18px;
-    border: 2px solid white;
+    border: 2px solid whitesmoke;
     border-radius: 6px;
+    margin-top: 3px;
+}
+
+.removeBook:hover {
+    background-color: #A30000;
+}
+
+button {
+    cursor: pointer;
 }
 
 /* library End */
@@ -123,7 +141,6 @@ h1 {
     background-color: rgba(0,0,0,0.5);
     width: 100vw;
     height: 100vh;
-    
 }
 
 .form {
@@ -142,8 +159,7 @@ label {
     color: white;
 }
 
-input[type=text], 
-input[type=number], 
+input[type=text],
 select {
     width: 100%;
     height: 40px;
@@ -172,9 +188,16 @@ select {
 
 #submit:hover, 
 #clearForm:hover {
-    background-color: steelblue;
     border: 2px solid white;
     color: white;
+}
+
+#submit:hover {
+    background-color: seagreen;
+}
+
+#clearForm:hover {
+    background-color: #A30000;
 }
 
 #closeForm {
@@ -184,12 +207,43 @@ select {
     top: 0px;
     color: white;
     background-color: Transparent;
-    cursor: pointer;
     border: none;
 }
 
 #closeForm:hover {
-    color:red;
+    color: #A30000;
 }
 
 /* form end */
+
+
+
+/* responsive start */
+
+/* @media (max-width: 739px) {
+    .libraryContainer {
+        grid-template-columns: repeat(auto-fit, 220px);
+        grid-column-gap: 5%;
+        justify-content: center;
+    }
+} */
+
+@media (max-width: 700px) {
+    .libraryContainer {
+        grid-template-columns: repeat(auto-fit, 250px);
+        grid-column-gap: 5%;
+        justify-content: center;
+    }
+
+    .book {
+        width: 250px;
+        height: 300px;
+        font-size: 18px;
+    }
+
+    .title {
+        font-size: 23px;
+        padding: 10px;
+        height: 40%;
+    }
+}

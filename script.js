@@ -6,31 +6,20 @@ const form = document.querySelector('.formContainer');
 
 let myLibrary = [
     {
-        number: 0,
         title: "To Kill a Mockingbird",
         author: "Harper Lee",
         pages: 281,
         status: "Complete"
-    }, 
+    },
     {
-        number: 1,
         title: "The Catcher in the Rye",
         author: "J. D. Salinger",
         pages: 234,
-        status: "Complete"
-    },
-    {
-        number: 2,
-        title: "The Book",
-        author: "The Author",
-        pages: 360,
         status: "Incomplete"
     }
 ];
 
-function Book(number, title, author, pages, status) {
-  // the constructor...
-    this.number = number;
+function Book(title, author, pages, status) {
     this.title = title;
     this.author = author;
     this.pages = pages;
@@ -38,12 +27,18 @@ function Book(number, title, author, pages, status) {
 }
 
 function addBookToLibrary(title, author, pages, status) {
-    // do stuff here
-    const number = myLibrary.length;
-    const addNewBook = new Book(number, title, author, pages, status);
+    const addNewBook = new Book(title, author, pages, status);
     myLibrary.push(addNewBook);
-    console.log(myLibrary);
     displayLibrary();
+}
+
+function clearTheForm() {
+    bookTitle.value = "";
+    bookAuthor.value = "";
+    bookPages.value = "0";
+    bookTitle.style.border = "2px solid steelblue";
+    bookAuthor.style.border = "2px solid steelblue";
+    bookPages.style.border = "2px solid steelblue";
 }
 
 function getBookInfo() {
@@ -61,20 +56,18 @@ function getBookInfo() {
     submit.addEventListener('click', function() {
         if (bookTitle.value != '' && bookAuthor.value != '') {
 
-            const title = bookTitle.value;
-            console.log(title);
-            const author = bookAuthor.value;
-            console.log(author);
+            if (isNaN(bookPages.value)) {
+                bookPages.style.border = "1px solid red";
+            } else {
+                const title = bookTitle.value;
+                const author = bookAuthor.value;
+                const pages = bookPages.value;
+                const status = bookStatus.value;
 
-            // to complete later
-            const pages = bookPages.value;
-            console.log(pages);
+                form.style.visibility = "hidden";
+                addBookToLibrary(title, author, pages, status);
+            }
 
-            const status = bookStatus.value;
-            console.log(status);
-
-            form.style.visibility = "hidden";
-            addBookToLibrary(title, author, pages, status);
         } else {
             if (bookTitle.value === '') {
                 bookTitle.style.border = "1px solid red";
@@ -85,13 +78,66 @@ function getBookInfo() {
     });
 }
 
-function clearTheForm() {
-    bookTitle.value = "";
-    bookAuthor.value = "";
-    bookPages.value = "0";
-    bookTitle.style.border = "2px solid steelblue";
-    bookAuthor.style.border = "2px solid steelblue";
-    bookPages.style.border = "2px solid steelblue";
+
+function removeBookStyle(index) {
+    const book = document.querySelectorAll('.book');
+    const title = document.querySelectorAll('.title');
+
+    book[index].style.backgroundColor = "whitesmoke";
+    book[index].style.border = "2px solid steelblue";
+    title[index].style.backgroundColor = "steelblue";
+}
+
+// dynamic styling
+function bookStyling() {
+    const completeBooks = document.querySelectorAll('.complete');
+    const titleComplete = document.querySelectorAll('.titleComplete');
+
+    completeBooks.forEach((book, index) => {
+        book.style.backgroundColor = "#E8D6EB";
+        book.style.border = "2px solid #8A4F7D";
+        titleComplete[index].style.backgroundColor = "#8A4F7D";
+    });
+}
+
+
+function statusButtonSetup() {
+    const book = document.querySelectorAll('.book');
+    const title = document.querySelectorAll('.title');
+    const statusButton = document.querySelectorAll('.statusButton');
+
+    statusButton.forEach((button, index) => {
+        button.addEventListener('click', function() {
+            if (this.innerHTML === 'Complete') {
+                this.innerHTML = "Incomplete";
+                myLibrary[index].status = "Incomplete";
+                book[index].classList.remove('complete');
+                title[index].classList.remove('titleComplete');
+                statusButton[index].classList.remove('statusComplete');
+                removeBookStyle(index);
+
+            } else if (this.innerHTML === 'Incomplete') {
+                this.innerHTML = "Complete"
+                myLibrary[index].status = "Complete";
+                book[index].classList.add('complete');
+                title[index].classList.add('titleComplete');
+                statusButton[index].classList.add('statusComplete');
+                bookStyling();
+            }
+        });
+    });
+}
+
+function removeButtonSetup() {
+    let removeBook = document.querySelectorAll('.removeBook');
+    removeBook.forEach((remove, index) => {
+        console.log(index);
+        remove.addEventListener('click', function() {
+            myLibrary.splice(index, 1);
+            displayLibrary();
+            console.log(myLibrary);
+        });
+    });
 }
 
 function displayLibrary() {
@@ -100,13 +146,13 @@ function displayLibrary() {
 
     for (i = 0; i <= myLibrary.length - 1; i++) {
         let book = document.createElement('div');
-        book.classList.add('book');
         library.appendChild(book);
 
-        let title = document.createElement('P');
-        title.classList.add('title');
-        title.innerHTML = myLibrary[i].title;
+        let title = document.createElement('div');
         book.appendChild(title);
+        let titleP = document.createElement('p');
+        titleP.innerHTML = myLibrary[i].title;
+        title.appendChild(titleP);
         
         let bookInfo = document.createElement('div');
         bookInfo.classList.add('bookInfo');
@@ -121,34 +167,30 @@ function displayLibrary() {
         pageNumber.innerHTML = `${myLibrary[i].pages} pages`;
         bookInfo.appendChild(pageNumber);
 
-        let statusButton = document.createElement('button');
-        statusButton.id = myLibrary[i].number;
-        statusButton.classList.add('statusButton');
-        statusButton.innerHTML = myLibrary[i].status;
-        book.appendChild(statusButton);
+        let theStatusButton = document.createElement('button');
         
-        let removeBook = document.createElement('button');
-        removeBook.id = "removeBook";
-        removeBook.innerHTML = "Remove";
-        book.appendChild(removeBook);
+        theStatusButton.innerHTML = myLibrary[i].status;
+        book.appendChild(theStatusButton);
+        
+        let removeBookButton = document.createElement('button');
+        removeBookButton.classList.add('removeBook');
+        removeBookButton.innerHTML = "Remove";
+        book.appendChild(removeBookButton);
 
+        if (myLibrary[i].status === "Complete") {
+            book.classList.add('book', 'complete');
+            title.classList.add('title', 'titleComplete');
+            theStatusButton.classList.add('statusButton', 'statusComplete');
+        } else {
+            book.classList.add('book');
+            title.classList.add('title');
+            theStatusButton.classList.add('statusButton');
+        }
     }
 
-    let statusButton = document.querySelectorAll('.statusButton');
-    
-    statusButton.forEach(button => {
-        button.addEventListener('click', function() {
-            if (this.innerHTML === 'Complete') {
-                this.innerHTML = "Incomplete";
-                myLibrary[this.id].status = "Incomplete";
-                console.log(myLibrary[this.id].status);
-            } else if (this.innerHTML === 'Incomplete') {
-                this.innerHTML = "Complete"
-                myLibrary[this.id].status = "Complete";
-                console.log(myLibrary[this.id].status);
-            }
-        });
-    });
+    bookStyling();
+    removeButtonSetup();
+    statusButtonSetup();
 }
 
 function init() {
@@ -171,11 +213,4 @@ function init() {
 
 init();
 
-// 4. Add a “NEW BOOK” button that brings up a form allowing users to input the details for the new book: author, title, number of pages, whether it’s been read and anything else you might want.
-
-// 5. Add a button on each book’s display to remove the book from the library.
-    // 1. You will need to associate your DOM elements with the actual book objects in some way.One easy solution is giving them a data - attribute that corresponds to the index of the library array.
-
-// 6. Add a button on each book’s display to change its read status.
-    // 1. To facilitate this you will want to create the function that toggles a book’s read status on your Book prototype instance.
 

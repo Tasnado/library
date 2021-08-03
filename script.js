@@ -29,6 +29,7 @@ function Book(title, author, pages, status) {
 function addBookToLibrary(title, author, pages, status) {
     const addNewBook = new Book(title, author, pages, status);
     myLibrary.push(addNewBook);
+    updateLocalStorage();
     displayLibrary();
 }
 
@@ -114,6 +115,7 @@ function statusButtonSetup() {
                 book[index].classList.remove('complete');
                 title[index].classList.remove('titleComplete');
                 statusButton[index].classList.remove('statusComplete');
+                updateLocalStorage();
                 removeBookStyle(index);
 
             } else if (this.innerHTML === 'Incomplete') {
@@ -122,6 +124,7 @@ function statusButtonSetup() {
                 book[index].classList.add('complete');
                 title[index].classList.add('titleComplete');
                 statusButton[index].classList.add('statusComplete');
+                updateLocalStorage();
                 bookStyling();
             }
         });
@@ -134,14 +137,13 @@ function removeButtonSetup() {
         console.log(index);
         remove.addEventListener('click', function() {
             myLibrary.splice(index, 1);
+            updateLocalStorage();
             displayLibrary();
-            console.log(myLibrary);
         });
     });
 }
 
 function displayLibrary() {
-    
     library.innerHTML = "";
 
     for (i = 0; i <= myLibrary.length - 1; i++) {
@@ -193,8 +195,17 @@ function displayLibrary() {
     statusButtonSetup();
 }
 
-function init() {
+function getLocalStorage() {
+    let originalLib = localStorage.getItem('library');
+    myLibrary = JSON.parse(originalLib);
+}
 
+function updateLocalStorage() {
+    let str = JSON.stringify(myLibrary);
+    localStorage.setItem('library', str);
+}
+
+function init() {
     addBookButton.addEventListener('click', function () {
         clearTheForm();
         if (form.style.visibility === 'hidden') {
@@ -206,7 +217,9 @@ function init() {
             form.style.visibility = "hidden";
         }
     });
-
+    if (localStorage.getItem("library") !== null) {
+        getLocalStorage();
+    }
     displayLibrary();
     getBookInfo();
 }

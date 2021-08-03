@@ -27,12 +27,12 @@ h1 {
 }
 /* header end */
 
+
 /* Library start */
 .libraryContainer {    
     display: grid;
     grid-template-columns: repeat(auto-fit, 200px);
     grid-column-gap: 5%;
-    /* justify-content: center; */
 }
 
 .addBook {
@@ -126,11 +126,10 @@ h1 {
 button {
     cursor: pointer;
 }
-
 /* library End */
 
-/* form start */
 
+/* form start */
 .formContainer {
     display: flex;
     justify-content: center;
@@ -219,15 +218,6 @@ select {
 
 
 /* responsive start */
-
-/* @media (max-width: 739px) {
-    .libraryContainer {
-        grid-template-columns: repeat(auto-fit, 220px);
-        grid-column-gap: 5%;
-        justify-content: center;
-    }
-} */
-
 @media (max-width: 700px) {
     .libraryContainer {
         grid-template-columns: repeat(auto-fit, 250px);

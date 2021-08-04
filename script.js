@@ -115,7 +115,6 @@ function statusButtonSetup() {
                 book[index].classList.remove('complete');
                 title[index].classList.remove('titleComplete');
                 statusButton[index].classList.remove('statusComplete');
-                updateLocalStorage();
                 removeBookStyle(index);
 
             } else if (this.innerHTML === 'Incomplete') {
@@ -124,9 +123,9 @@ function statusButtonSetup() {
                 book[index].classList.add('complete');
                 title[index].classList.add('titleComplete');
                 statusButton[index].classList.add('statusComplete');
-                updateLocalStorage();
                 bookStyling();
             }
+            updateLocalStorage();
         });
     });
 }
